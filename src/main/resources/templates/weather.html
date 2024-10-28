@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather Information</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f8ff;
+        color: #333;
+        margin: 0;
+        padding: 20px;
+    }
+    header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    h1 {
+        color: #007bff;
+    }
+    .weather-container {
+        border: 1px solid #007bff;
+        border-radius: 10px;
+        padding: 20px;
+        max-width: 400px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    .weather-info {
+        margin-bottom: 15px;
+    }
+    .weather-info h2 {
+        margin: 0;
+        color: #007bff;
+    }
+    .weather-info p {
+        margin: 5px 0;
+    }
+    .error {
+        color: red;
+        text-align: center;
+        margin: 10px 0;
+    }
+    form {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    input[type="text"] {
+        padding: 10px;
+        border: 1px solid #007bff;
+        border-radius: 5px;
+        width: 200px;
+        margin-right: 10px;
+    }
+    button {
+        padding: 10px 15px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
+    footer {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 0.8em;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1><i class="fas fa-cloud-sun"></i> Weather Information</h1>
+</header>
+
+<div class="weather-container">
+  <div th:if="${error}" class="error">
+    <p th:text="${error}"></p>
+  </div>
+
+  <div th:if="${weatherResponse}" class="weather-info">
+    <h2>Weather Data for <span th:text="${weatherResponse.name}"></span>:</h2>
+    <p>Temperature: <span th:text="${weatherResponse.main.temperature}"></span> °C</p>
+    <p>Humidity: <span th:text="${weatherResponse.main.humidity}"></span> %</p>
+    <p>Wind Speed: <span th:text="${weatherResponse.wind.speed}"></span> m/s</p>
+    <p>Weather: <span th:text="${weatherResponse.weather[0].description}"></span></p>
+  </div>
+
+  <form action="#" th:action="@{/weather-view}" method="get">
+    <input type="text" name="city" placeholder="Enter city" required />
+    <button type="submit">Get Weather</button>
+  </form>
+</div>
+
+<footer>
+  <p>&copy; 2024 Weather App. All rights reserved.</p>
+</footer>
+</body>
+</html>
+
+
+
+
+
